@@ -1,10 +1,10 @@
 import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { IndexRedirect, Route, Router, hashHistory, IndexRoute, Redirect } from 'react-router';
+import {Provider} from 'react-redux';
 import store from './store/index';
 
+import {IndexRedirect, Route, Router, hashHistory, IndexRoute, Redirect} from 'react-router';
 
 import App from './containers/App';
 
@@ -60,7 +60,7 @@ ReactDOM.render(
                 {/* 业务概况 */}
                 <Route path="general" getComponent={(location, callback)=>{
                     require.ensure([], function (require) {
-                        callback(null, require('./containers/general/General').default)
+                        callback(null, require('./containers/General/General').default)
                     }, 'General') 
                 }}>
                     
@@ -68,7 +68,7 @@ ReactDOM.render(
                     
                     <Route path="list" getComponent={(location, callback)=>{
                         require.ensure([], function (require) {
-                            callback(null, require('./containers/general/List').default)
+                            callback(null, require('./containers/General/List').default)
                         }, 'GeneralList')
                     }} />
                     
