@@ -1,0 +1,10 @@
+{
+    "code": 0,
+    "msg": "post成功",
+    "data": {
+        "userName": "xxx",
+        "tel": "18612244125",
+        "defaultMenu": "consume",
+        "role": 3
+    }
+}

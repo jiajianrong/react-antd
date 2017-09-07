@@ -1,75 +1,40 @@
-// 
-//  server.js
-//  <project>
-//  
-//  Created by licheng09 on 2017-05-25.
-//  Copyright 2017 licheng09. All rights reserved.
-// 
-
 const http = require('http');
 const fs = require('fs');
-const path = process.cwd();
+let request = require('request').defaults({jar: true});
+//let qs = require('querystring');
 
-var request = require('request').defaults({jar: true});
-//var qs = require('querystring');
 
-//端口对应.roadhogrc中的代理
-const hostname = '127.0.0.1';
-const port = 8002;
-//后台环境地址
-const proxyip = 'http://192.168.187.147:8080/';
+const HOSTNAME = '127.0.0.1';
+const POST = 8002;
+const PREFIX_PATH = '.'; //process.cwd()
 
-const server = http.createServer((req, res) => {
+
+const getMockFilePath = (req) => (PREFIX_PATH + req.url + '.' + req.method + '.json')
+
+
+
+http.createServer((req, res) => {
+    if ( req.url.indexOf('favicon.ico') != -1 ) {
+        return '';
+    }
     
+    let filePath = getMockFilePath(req);
     
-	res.statusCode = 200;
-	//res.end("{aaa: 'bbb'}");
-	
-	request.get('http://sohu.com').pipe(res)
-	
-	return;
-	
-	
-	if(req.url.indexOf("/echo/") == 0) { //模拟数据处理
-		//全局json文件转发器，请在router.json中配置请求路由
-		try {
-			var file = path + "/data/" + getRouter()[req.url.split("/echo/")[1].split("?")[0]] + ".json";
-			var result = fs.readFileSync(file);
-			res.setHeader('Content-Type', 'application/json;charset=utf-8');
-			res.end(result);
-		} catch(e) {
-			res.setHeader('Content-Type', 'text/plain;charset=utf-8');
-			console.log(e.toString());
-			res.end(e.toString());
-		}
-		return;
-	} else if(req.url.indexOf("/proxy/") == 0) { //跨域代理处理
-		try {
-			if(req.method.toUpperCase() == 'POST') {
-				var postData = "";
-				req.addListener("data", function(data) {
-					postData += data;
-				});
-				req.addListener("end", function() {
-					request.post(proxyip + req.url.split("/proxy/")[1], {
-						form: qs.parse(postData)
-					}).pipe(res);
-				});
-			} else if(req.method.toUpperCase() == 'GET') {
-				request.get(proxyip + req.url.split("/proxy/")[1]).pipe(res);
-			}
-		} catch(e) {
-			res.setHeader('Content-Type', 'text/plain;charset=utf-8');
-			console.log(e.toString());
-			res.end(e.toString());
-		}
-		return;
-	}
-	res.setHeader('Content-Type', 'text/plain;charset=utf-8');
-	res.end('Hello,请在router.json中配置请求路由。');
-});
-
-server.listen(port, hostname, () => {
-	console.log(`Json Server running at http://${hostname}:${port}/`);
+    // 必须前置，否则中文乱码
+    res.setHeader('Content-Type', 'application/json; charset="utf-8');
+    
+    // pipe mock文件
+    fs.createReadStream(filePath, {encoding: 'utf8'})
+        .on('finish', ()=>{
+            res.statusCode = 200;
+        })
+        .on('error', (e)=>{
+            res.statusCode = 404;
+            res.end(e.toString());
+        })
+        .pipe(res);
+})
+.listen(POST, HOSTNAME, () => {
+	console.log(`Json Server running at http://${HOSTNAME}:${POST}/`);
 });
 
