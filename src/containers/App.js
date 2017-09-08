@@ -93,4 +93,22 @@ class App extends Component {
 }
 
 
-export default connect()(App)
+
+
+/**
+ * react-redux的connect，通过 connect(select)(App) 连接 store 和 App 容器组件
+ * mapStateToProps方法返回的对象，以及附带的dispatch方法会 以props的形式传递到container
+ * 即，在container中可以
+ * const { dispatch, loginUserInfo } = this.props;
+ * 
+ */
+const mapStateToProps = (state/*store.getState*/, ownProps) => {
+
+    return {
+        loginUserInfo: state.loginUserInfo
+    }
+
+};
+
+
+export default connect(mapStateToProps)(App)

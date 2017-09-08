@@ -1,15 +1,16 @@
 const http = require('http');
 const fs = require('fs');
-let request = require('request').defaults({jar: true});
+const URL = require('url');
+//let request = require('request').defaults({jar: true});
 //let qs = require('querystring');
 
 
 const HOSTNAME = '127.0.0.1';
-const POST = 8002;
+const PORT = 8002;
 
 
 
-const getMockFilePath = (req) => (__dirname + req.url + '.' + req.method + '.json')
+const getMockFilePath = (req) => (__dirname + URL.parse(req.url).pathname + '.' + req.method + '.json')
 
 
 
@@ -34,7 +35,7 @@ http.createServer((req, res) => {
         })
         .pipe(res);
 })
-.listen(POST, HOSTNAME, () => {
-	console.log(`Json Server running at http://${HOSTNAME}:${POST}/`);
+.listen(PORT, HOSTNAME, () => {
+	console.log(`Json Server running at http://${HOSTNAME}:${PORT}/`);
 });
 
