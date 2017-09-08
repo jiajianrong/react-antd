@@ -1,27 +1,11 @@
 import { combineReducers } from 'redux';
-import { homeRecommendList } from './home';
+import { loginUser } from './loginUser';
 import contactInfo from './contactInfo';
 
 //使用redux的combineReducers方法将所有reducer打包起来
-
-import { apartmentList,
-    curQuery,
-    curCity,
-    curType,
-    curPrice,
-    curPage,
-    cityList} from './apartment';
-
 const rootReducer = combineReducers({
-    homeRecommendList,
-    contactInfo,
-    apartmentList,
-    curQuery,
-    curCity,
-    curType,
-    curPrice,
-    curPage,
-    cityList
+    loginUser,
+    contactInfo
 });
 
 export default rootReducer;

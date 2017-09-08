@@ -1,22 +1,21 @@
 import { fetchGet } from '../api/fetch';
 
 
-export const FETCH_LOGIN_USER_INFO = 'FETCH_LOGIN_USER_INFO';
-export function fetchLoginUserInfo (url, body) {
+export const GET_LOGIN_USER = 'GET_LOGIN_USER';
+export function getLoginUser() {
 
-	return (dispatch, getState) => {
-
-		fetchGet(url, body, (data) => {
-
-			if (data) {
-				dispatch({
-					type: FETCH_LOGIN_USER_INFO,
-					payload: data
-				})
-			}
-
-		})
-
-	}
+    return (dispatch, getState) => {
+        fetchGet('api/getLoginUser', {/* body */}, (data) => {
+            data && dispatch({
+                type: GET_LOGIN_USER,
+                payload: data
+            })
+        })
+    }
 
 }
+
+
+
+
+

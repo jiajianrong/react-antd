@@ -5,7 +5,6 @@ const URL = require('url');
 //let qs = require('querystring');
 
 
-const HOSTNAME = '127.0.0.1';
 const PORT = 8002;
 
 
@@ -35,7 +34,7 @@ http.createServer((req, res) => {
         })
         .pipe(res);
 })
-.listen(PORT, HOSTNAME, () => {
-	console.log(`Json Server running at http://${HOSTNAME}:${PORT}/`);
+.listen(PORT, () => {
+	console.log(`Json Server running at http://localhost:${PORT}/`);
 });
 

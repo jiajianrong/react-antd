@@ -1,22 +1,18 @@
-import { FETCH_LOGIN_USER_INFO } from '../actions/loginUser';
+import { GET_LOGIN_USER } from '../actions/loginUser';
 
 /**
- * 处理首页推荐列表
  * previousState 为 
  * store.getState().loginUser
  */
-export function homeRecommendList ( previousState=[], action ) {
+export function loginUser ( previousState={}, action ) {
 
 	switch (action.type) {
 
-		case FETCH_HOME_RECOMMEND_LIST:
-
+		case GET_LOGIN_USER:
 			return action.payload
 
 		default:
-
 			return previousState
-
 	}	
 
 }

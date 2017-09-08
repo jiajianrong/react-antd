@@ -1,8 +1,8 @@
 {
     "code": 0,
-    "msg": "post成功",
+    "msg": "get成功",
     "data": {
-        "name": "xxx",
+        "name": "jiajianrong",
         "tel": "18612244125",
         "defaultMenu": "consume",
         "role": 3

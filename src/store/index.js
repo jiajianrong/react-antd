@@ -44,4 +44,7 @@ let createAppStore = applyMiddleware(...middlewares)(createStore);
 
 let store = createAppStore(reducers/*, {}*/);
 
+// jiajianrong 20170908 暂时抛出
+window.globalStore = store;
+
 export default store;
