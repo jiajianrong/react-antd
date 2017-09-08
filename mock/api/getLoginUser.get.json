@@ -5,6 +5,28 @@
         "name": "jiajianrong",
         "tel": "18612244125",
         "defaultMenu": "consume",
-        "role": 3
+        "role": [
+            {
+                "name": "首页",
+                "key": "/home",
+                "icon": "desktop"
+            }, {
+                "name": "开放平台",
+                "key": "general",
+                "icon": "pie-chart",
+                "menu": [{
+                    "name": "业务概述",
+                    "key": "/general/list"
+                }]
+            }, {
+                "name": "月付",
+                "key": "yuefu",
+                "icon": "mail",
+                "menu": [{
+                    "name": "首页",
+                    "key": "/yuefu/home"
+                }]
+            }
+        ]
     }
 }

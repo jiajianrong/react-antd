@@ -25,15 +25,41 @@ class AppSider extends React.Component {
     
     
     
+    
+    renderMenu = (appMenuList) => {
+        const loop = (item, i) => {
+            const { name, key, icon, menu } = item;
+                if (menu && menu.length > 0) {
+                    return (<SubMenu key={key} title={<span><Icon type={ icon }/><span>{ name }</span></span>}>
+                        { menu.map((child, j) => loop(child, j) ) }
+                    </SubMenu>)
+                } else {
+                    return (<Menu.Item key={ key }>
+                        <Icon type={ icon } />
+                        <span>{ name }</span>
+                    </Menu.Item>)
+                }
+        }
+        
+        return appMenuList.map((item, i) => loop(item, i));
+    }
+    
+    
+    
+    
+    
     render() {
         
         let { dispatch, loginUser } = this.props;
+        
+        let appMenuList = loginUser.role;
         
         return (
             <Sider className="AppSider">
                 
                 <div className="logo">Logo 信息管理后台</div>
                 
+                {/**
                 <Menu
                   mode="inline"
                   theme="dark"
@@ -51,6 +77,18 @@ class AppSider extends React.Component {
                     <SubMenu key="/yuefu" title={<span><Icon type="mail" /><span>月付</span></span>}>
                         <Menu.Item key="/home">首页</Menu.Item>
                     </SubMenu>
+                </Menu>
+                  */}
+                
+                <Menu
+                      mode="inline"
+                      theme="dark"
+                      defaultSelectedKeys={['/home']}
+                      onClick={ this.menuItemOnClick }
+                >
+                    { appMenuList && appMenuList.length > 0 
+                        ? this.renderMenu(appMenuList)
+                        : false }
                 </Menu>
                 
             </Sider>
