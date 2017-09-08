@@ -6,10 +6,10 @@ let request = require('request').defaults({jar: true});
 
 const HOSTNAME = '127.0.0.1';
 const POST = 8002;
-const PREFIX_PATH = '.'; //process.cwd()
 
 
-const getMockFilePath = (req) => (PREFIX_PATH + req.url + '.' + req.method + '.json')
+
+const getMockFilePath = (req) => (__dirname + req.url + '.' + req.method + '.json')
 
 
 
