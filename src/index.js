@@ -74,6 +74,25 @@ ReactDOM.render(
                     
                 </Route>
                 
+                
+                
+                {/* 资产方 */}
+                <Route path="asset" getComponent={(location, callback)=>{
+                    require.ensure([], function (require) {
+                        callback(null, require('./containers/Asset/Asset').default)
+                    }, 'Asset') 
+                }}>
+                    
+                    <IndexRedirect to="assetMgmt"/>
+                    
+                    <Route path="assetMgmt" getComponent={(location, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, require('./containers/Asset/AssetMgmt').default)
+                        }, 'AssetMgmt')
+                    }} />
+                    
+                </Route>
+                
             </Route>
             
             
