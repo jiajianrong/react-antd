@@ -1,8 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
+import {isEqual} from 'lodash';
 import {fetchGet} from '../../api/fetch';
 import './AssetMgmtQueryForm.scss';
+
+
+import { updateQuery, getAssets } from '../../actions/assetMgmt';
 
 
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
@@ -12,34 +16,54 @@ const Option = Select.Option;
 
 
 
+
 class AssetMgmtQueryForm extends React.Component {
-    
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            
-        };
-    }
     
     
     handleSubmit = (e) => {
         e.preventDefault();
+        
+        let dispatch = this.props.dispatch;
+        
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                //console.log('Received values of form: ', values);
+                // 更新store
+                dispatch(updateQuery(values));
             }
         });
     }
     
     
-    componentDidMount () {
-        
+    
+    /*componentWillReceiveProps(nextProps) {
+        if ( isEqual( nextProps.assetsQueryForm, this.props.assetsQueryForm ) ) {
+            return;
+        }
+        console.log('componentWillReceiveProps', nextProps.assetsQueryForm)
+        //this.props.form.setFieldsValue(nextProps.assetsQueryForm);
     }
     
     
     
+    componentDidMount() {
+        console.log('componentDidMount', this.props.assetsQueryForm);
+        //this.props.form.setFieldsValue(this.props.assetsQueryForm);
+    }
+    
+    
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;// !isEqual( nextProps.assetsQueryForm, this.props.assetsQueryForm )
+    }*/
+    
+    
+    
     render() {
+        
+        const assetsQueryForm = this.props.assetsQueryForm;
+        console.log('render', assetsQueryForm)
+        
         
         const { getFieldDecorator } = this.props.form;
         
@@ -79,7 +103,7 @@ class AssetMgmtQueryForm extends React.Component {
                 >
                   {getFieldDecorator('id', {
                     rules: [{ required: true, message: '请填写编号', whitespace: true }],
-                    initialValue: 'aaaa'
+                    initialValue: assetsQueryForm.id,
                   })(
                     <Input />
                   )}
@@ -95,6 +119,7 @@ class AssetMgmtQueryForm extends React.Component {
                     rules: [
                       { required: true, message: '请填写名称' },
                     ],
+                    initialValue: assetsQueryForm.name,
                   })(
                     <Select placeholder="">
                       <Option value="名称1">名称1</Option>
@@ -124,7 +149,8 @@ class AssetMgmtQueryForm extends React.Component {
 const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
     return {
-        loginUser: state.loginUser
+        loginUser: state.loginUser,
+        assetsQueryForm: state.assetsQueryForm,
     }
 
 };
@@ -135,4 +161,4 @@ const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
 
 
-export default Form.create()(AssetMgmtQueryForm);
+export default Form.create()(connect(mapStateToProps)(AssetMgmtQueryForm));

@@ -31,7 +31,7 @@ class AssetMgmt extends React.Component {
     
     
     render() {
-        
+        console.log('container.render')
         
         return (
             <div className="AssetMgmt">
