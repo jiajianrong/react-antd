@@ -63,7 +63,7 @@ class AssetMgmtTable extends React.Component {
         
         return (
             <div className="AssetMgmtTable">
-                <Table columns={columns} dataSource={data} />
+                <Table columns={columns} dataSource={data} rowKey={record => record.id} />
             </div>
         );
     }
@@ -86,9 +86,6 @@ const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
 };
 
-
-
-// export default connect(mapStateToProps)(AssetMgmtTable)
 
 
 

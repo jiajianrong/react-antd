@@ -18,8 +18,9 @@ export function assetsQueryForm ( previousState={}, action ) {
 }
 
 
+
 export function assetsTable ( previousState=[], action ) {
-    console.log('assets table reducer')
+    
     switch (action.type) {
 
         case GET_ASSETS:

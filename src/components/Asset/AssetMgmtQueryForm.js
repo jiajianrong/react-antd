@@ -62,7 +62,6 @@ class AssetMgmtQueryForm extends React.Component {
     render() {
         
         const assetsQueryForm = this.props.assetsQueryForm;
-        console.log('render', assetsQueryForm)
         
         
         const { getFieldDecorator } = this.props.form;
@@ -149,7 +148,6 @@ class AssetMgmtQueryForm extends React.Component {
 const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
     return {
-        loginUser: state.loginUser,
         assetsQueryForm: state.assetsQueryForm,
     }
 
@@ -158,7 +156,4 @@ const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
 
 // export default connect(mapStateToProps)(AssetMgmtQueryForm)
-
-
-
 export default Form.create()(connect(mapStateToProps)(AssetMgmtQueryForm));
