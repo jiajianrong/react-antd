@@ -5,9 +5,8 @@ export const GET_ASSETS = 'GET_ASSETS';
 export function getAssets(body) {
 
     return (dispatch, getState) => {
-        fetchGet('api/getAssets', body, (data) => {
-            console.log('getAssets, ', data)
-            data && dispatch({
+        return fetchGet('api/asset/getAssets', body, (data) => {
+            return dispatch({
                 type: GET_ASSETS,
                 payload: data
             })

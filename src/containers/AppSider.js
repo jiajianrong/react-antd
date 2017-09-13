@@ -84,7 +84,6 @@ class AppSider extends React.Component {
                 <Menu
                       mode="inline"
                       theme="dark"
-                      defaultSelectedKeys={['/home']}
                       onClick={ this.menuItemOnClick }
                 >
                     { appMenuList && appMenuList.length > 0 

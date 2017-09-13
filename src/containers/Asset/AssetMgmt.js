@@ -9,7 +9,7 @@ import { Row, Col, Button } from 'antd';
 
 
 import AssetMgmtQueryForm from '../../components/Asset/AssetMgmtQueryForm';
-
+import AssetMgmtTable from '../../components/Asset/AssetMgmtTable';
 
 
 class AssetMgmt extends React.Component {
@@ -43,6 +43,8 @@ class AssetMgmt extends React.Component {
                 
                 
                 <AssetMgmtQueryForm />
+                
+                <AssetMgmtTable />
             </div>
         );
     }

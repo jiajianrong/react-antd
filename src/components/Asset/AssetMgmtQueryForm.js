@@ -6,7 +6,7 @@ import {fetchGet} from '../../api/fetch';
 import './AssetMgmtQueryForm.scss';
 
 
-import { updateQuery, getAssets } from '../../actions/assetMgmt';
+import { updateQuery } from '../../actions/assetMgmt';
 
 
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
@@ -79,16 +79,16 @@ class AssetMgmtQueryForm extends React.Component {
         };
         
         const tailFormItemLayout = {
-          wrapperCol: {
-            xs: {
-              //span: 24,
-              offset: 0,
+            wrapperCol: {
+                xs: {
+                    //span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    //span: 14,
+                    offset: 4,
+                },
             },
-            sm: {
-              //span: 14,
-              offset: 4,
-            },
-          },
         };
         
         return (
