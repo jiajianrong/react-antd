@@ -7,12 +7,21 @@ import {Layout, Icon} from 'antd';
 import './AppHeader.scss';
 
 
+import {getLoginUser} from '../actions/loginUser';
+
 
 const {Header} = Layout;
 
 
 
 class AppHeader extends React.Component {
+    
+    
+    componentDidMount() {
+        const { dispatch } = this.props;
+        dispatch(getLoginUser());
+    }
+    
     
     
     render() {

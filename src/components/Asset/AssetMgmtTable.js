@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {isEqual} from 'lodash';
 import {fetchGet} from '../../api/fetch';
-import './AssetMgmtTable.scss';
+
 
 
 import { getAssets } from '../../actions/assetMgmt';
@@ -45,14 +45,12 @@ class AssetMgmtTable extends React.Component {
     
     componentWillReceiveProps(nextProps) {
         
-        if ( isEqual( nextProps.assetsQueryForm, this.props.assetsQueryForm ) ) {
-            return;
-        }
-        
         // query form有更新
         // dispatch remote fetch action
         // 更新store
-        this.props.dispatch(getAssets(nextProps.assetsQueryForm))
+        if ( ! isEqual( nextProps.assetsQueryForm, this.props.assetsQueryForm ) ) {
+            this.props.dispatch(getAssets(nextProps.assetsQueryForm))
+        }
     }
     
     
@@ -62,7 +60,7 @@ class AssetMgmtTable extends React.Component {
         let data = this.props.assetsTable;
         
         return (
-            <div className="AssetMgmtTable">
+            <div className="AppComponent AssetMgmtTable">
                 <Table columns={columns} dataSource={data} rowKey={record => record.id} />
             </div>
         );

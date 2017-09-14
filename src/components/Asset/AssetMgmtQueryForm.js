@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {isEqual} from 'lodash';
 import {fetchGet} from '../../api/fetch';
-import './AssetMgmtQueryForm.scss';
+
 
 
 import { updateQuery, getAssetNames } from '../../actions/assetMgmt';
@@ -88,7 +88,7 @@ class AssetMgmtQueryForm extends React.Component {
         
         
         return (
-            <Form className="AssetMgmtQueryForm" onSubmit={this.handleSubmit}>
+            <Form className="AppComponent AssetMgmtQueryForm" onSubmit={this.handleSubmit}>
                 
                 <FormItem
                   {...formItemLayout}

@@ -3,7 +3,15 @@
 
 
 .App {
-    
+    .AppContent {
+        margin: 16px;
+        
+        .AppComponent {
+            margin-top: 20px;
+            padding: 30px 0;
+            background-color: #fff;
+        }
+    }
     
 }
 

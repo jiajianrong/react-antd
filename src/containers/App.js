@@ -6,7 +6,6 @@ import {Layout} from 'antd';
 import './App.scss';
 
 // 获取登录用户信息
-import {getLoginUser} from '../actions/loginUser';
 import AppHeader from './AppHeader';
 import AppSider from './AppSider';
 
@@ -16,12 +15,6 @@ const {Content} = Layout;
 
 
 class App extends Component {
-    
-    componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(getLoginUser());
-    }
-    
     
     
     render() {
@@ -33,7 +26,7 @@ class App extends Component {
                 
                 <Layout>
                     <AppHeader />
-                    <Content>{this.props.children}</Content>
+                    <Content className="AppContent">{this.props.children}</Content>
                 </Layout>
                 
             </Layout>
@@ -63,4 +56,4 @@ export default connect(mapStateToProps)(App)*/
 
 // jiajianrong 20170908
 // App.js 不绑定store.getState
-export default connect()(App)
+export default App;

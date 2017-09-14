@@ -91,6 +91,12 @@ ReactDOM.render(
                         }, 'AssetMgmt')
                     }} />
                     
+                    <Route path="assetMgmtAddForm" getComponent={(location, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, require('./containers/Asset/AssetMgmtAddForm').default)
+                        }, 'AssetMgmtAddForm')
+                    }} />
+                    
                 </Route>
                 
             </Route>
