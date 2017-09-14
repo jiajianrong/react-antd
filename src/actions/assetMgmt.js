@@ -27,3 +27,16 @@ export function updateQuery(body) {
 }
 
 
+export const GET_ASSET_NAMES = 'GET_ASSET_NAMES';
+export function getAssetNames() {
+
+    return (dispatch, getState) => {
+        fetchGet('api/asset/getAssetNames', {}, (data) => {
+            data && dispatch({
+                type: GET_ASSET_NAMES,
+                payload: data
+            })
+        })
+    }
+
+}

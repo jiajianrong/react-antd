@@ -6,7 +6,7 @@ import {fetchGet} from '../../api/fetch';
 import './AssetMgmtQueryForm.scss';
 
 
-import { updateQuery } from '../../actions/assetMgmt';
+import { updateQuery, getAssetNames } from '../../actions/assetMgmt';
 
 
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
@@ -26,14 +26,17 @@ class AssetMgmtQueryForm extends React.Component {
         let dispatch = this.props.dispatch;
         
         this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                //console.log('Received values of form: ', values);
-                // 更新store
-                dispatch(updateQuery(values));
-            }
+            // 更新store
+            !err && dispatch(updateQuery(values));
         });
     }
     
+    
+    
+    componentDidMount() {
+        if ( ! this.props.assetNames.length )
+            this.props.dispatch(getAssetNames());
+    }
     
     
     /*componentWillReceiveProps(nextProps) {
@@ -43,16 +46,6 @@ class AssetMgmtQueryForm extends React.Component {
         console.log('componentWillReceiveProps', nextProps.assetsQueryForm)
         //this.props.form.setFieldsValue(nextProps.assetsQueryForm);
     }
-    
-    
-    
-    componentDidMount() {
-        console.log('componentDidMount', this.props.assetsQueryForm);
-        //this.props.form.setFieldsValue(this.props.assetsQueryForm);
-    }
-    
-    
-    
     shouldComponentUpdate(nextProps, nextState) {
         return true;// !isEqual( nextProps.assetsQueryForm, this.props.assetsQueryForm )
     }*/
@@ -62,6 +55,7 @@ class AssetMgmtQueryForm extends React.Component {
     render() {
         
         const assetsQueryForm = this.props.assetsQueryForm;
+        const assetNames = this.props.assetNames;
         
         
         const { getFieldDecorator } = this.props.form;
@@ -89,6 +83,9 @@ class AssetMgmtQueryForm extends React.Component {
                 },
             },
         };
+        
+        
+        
         
         return (
             <Form className="AssetMgmtQueryForm" onSubmit={this.handleSubmit}>
@@ -128,6 +125,28 @@ class AssetMgmtQueryForm extends React.Component {
                 </FormItem>
                 
                 
+                <FormItem
+                  {...formItemLayout}
+                  label="测试异步数据&nbsp;"
+                  hasFeedback
+                >
+                  {getFieldDecorator('asyncSelect', {
+                    rules: [
+                      { required: true, message: '请填写' },
+                    ],
+                    initialValue: assetsQueryForm.asyncSelect,
+                  })(
+                    <Select placeholder="">
+                      {
+                        assetNames.map( (item) => 
+                          (<Option value={item.key} key={item.key}>{item.label}</Option>)
+                        )
+                      }
+                    </Select>
+                  )}
+                </FormItem>
+                
+                
                 <FormItem {...tailFormItemLayout}>
                   <Button type="primary" htmlType="submit">查询</Button>
                 </FormItem>
@@ -148,6 +167,7 @@ class AssetMgmtQueryForm extends React.Component {
 const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
     return {
+        assetNames: state.assetNames,
         assetsQueryForm: state.assetsQueryForm,
     }
 

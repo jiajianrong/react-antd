@@ -36,7 +36,9 @@ class AssetMgmt extends React.Component {
             <div className="AssetMgmt">
                 <Row>
                     <Col span={24}>
-                        <Button type="primary" size="large"> 新建机构 </Button>
+                        <Link to="/asset/assetMgmtAddForm">
+                            <Button type="primary" size="large"> 新建机构 </Button>
+                        </Link>
                     </Col>
                 </Row>
                 
