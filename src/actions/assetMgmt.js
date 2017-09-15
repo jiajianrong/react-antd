@@ -1,4 +1,4 @@
-import { fetchGet } from '../api/fetch';
+import { fetchGet, fetchPost } from '../api/fetch';
 
 
 export const GET_ASSETS = 'GET_ASSETS';
@@ -40,3 +40,5 @@ export function getAssetNames() {
     }
 
 }
+
+

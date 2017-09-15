@@ -44,13 +44,16 @@ class AssetMgmtTable extends React.Component {
     
     
     componentWillReceiveProps(nextProps) {
-        
+        console.log('table.componentWillReceiveProps')
         // query form有更新
         // dispatch remote fetch action
         // 更新store
-        if ( ! isEqual( nextProps.assetsQueryForm, this.props.assetsQueryForm ) ) {
-            this.props.dispatch(getAssets(nextProps.assetsQueryForm))
-        }
+        
+        // 2017-9-15 jiajianrong 停止性能优化，
+        // 因为在addform里可能会触发在查询条件不变的情况下重新加载table
+        // if ( ! isEqual( nextProps.assetsQueryForm, this.props.assetsQueryForm ) )
+        this.props.dispatch(getAssets(nextProps.assetsQueryForm))
+        
     }
     
     

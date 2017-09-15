@@ -1,28 +1,93 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
-import {fetchGet} from '../../api/fetch';
+import {fetchGet, fetchPost} from '../../api/fetch';
 
 
-import { Row, Col, Button } from 'antd';
 
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+
+const FormItem = Form.Item;
+const Option = Select.Option;
 
 
 
 class AssetMgmtAddForm extends React.Component {
     
     
+    handleSubmit = (e) => {
+        e.preventDefault();
+        
+        let {dispatch, router} = this.props;
+        
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            
+            !err && fetchPost('api/asset/saveAsset', values, (data) => {
+                router.push('asset/assetMgmt');
+            });
+            
+        });
+    }
+    
     
     
     render() {
         
+        const { getFieldDecorator } = this.props.form;
+        
+        const formItemLayout = {
+            labelCol: {
+                // xs: { span: 24 },
+                sm: { span: 4 },
+            },
+            wrapperCol: {
+                // xs: { span: 24 },
+                sm: { span: 8 },
+            },
+        };
+        
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    //span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    //span: 14,
+                    offset: 4,
+                },
+            },
+        };
+        
         return (
-            <div className="AssetMgmtAddForm">
-                add form
-            </div>
+            <Form className="AppComponent AssetMgmtAddForm" onSubmit={this.handleSubmit}>
+                
+                <FormItem
+                  {...formItemLayout}
+                  label={(
+                    <span>资产方编号&nbsp;</span>
+                  )}
+                  hasFeedback
+                >
+                  {getFieldDecorator('id', {
+                    rules: [{ required: true, message: '请填写编号', whitespace: true }],
+                    initialValue: '',
+                  })(
+                    <Input />
+                  )}
+                </FormItem>
+                
+                
+                <FormItem {...tailFormItemLayout}>
+                  <Button type="primary" htmlType="submit">查询</Button>
+                </FormItem>
+                
+            </Form>
         );
     }
 }
+
+
 
 
 /**
@@ -35,11 +100,12 @@ class AssetMgmtAddForm extends React.Component {
 const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
     return {
-        // loginUser: state.loginUser
+        
     }
 
 };
 
 
 
-export default connect(mapStateToProps)(AssetMgmtAddForm)
+// export default connect(mapStateToProps)(AssetMgmtQueryForm)
+export default Form.create()(connect(mapStateToProps)(AssetMgmtAddForm));
