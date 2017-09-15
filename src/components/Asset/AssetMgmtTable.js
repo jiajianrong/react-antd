@@ -1,12 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
-import {isEqual} from 'lodash';
-import {fetchGet} from '../../api/fetch';
-
-
-
-import { getAssets } from '../../actions/assetMgmt';
 
 
 import { Table, Icon } from 'antd';
@@ -39,24 +33,8 @@ const columns = [{
 
 
 
+
 class AssetMgmtTable extends React.Component {
-    
-    
-    
-    componentWillReceiveProps(nextProps) {
-        console.log('table.componentWillReceiveProps')
-        // query form有更新
-        // dispatch remote fetch action
-        // 更新store
-        
-        // 2017-9-15 jiajianrong 停止性能优化，
-        // 因为在addform里可能会触发在查询条件不变的情况下重新加载table
-        // if ( ! isEqual( nextProps.assetsQueryForm, this.props.assetsQueryForm ) )
-        this.props.dispatch(getAssets(nextProps.assetsQueryForm))
-        
-    }
-    
-    
     
     
     render() {
@@ -81,7 +59,6 @@ class AssetMgmtTable extends React.Component {
 const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
     return {
-        assetsQueryForm: state.assetsQueryForm,
         assetsTable: state.assetsTable,
     }
 

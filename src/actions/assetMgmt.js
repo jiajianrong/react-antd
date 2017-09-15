@@ -27,13 +27,13 @@ export function updateQuery(body) {
 }
 
 
-export const GET_ASSET_NAMES = 'GET_ASSET_NAMES';
-export function getAssetNames() {
+export const GET_ASYNC_NAMES = 'GET_ASYNC_NAMES';
+export function getAsyncNames() {
 
     return (dispatch, getState) => {
-        fetchGet('api/asset/getAssetNames', {}, (data) => {
+        fetchGet('api/asset/getAsyncNames', {}, (data) => {
             data && dispatch({
-                type: GET_ASSET_NAMES,
+                type: GET_ASYNC_NAMES,
                 payload: data
             })
         })

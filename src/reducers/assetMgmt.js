@@ -1,4 +1,4 @@
-import { GET_ASSETS, UPDATE_QUERY, GET_ASSET_NAMES } from '../actions/assetMgmt';
+import { GET_ASSETS, UPDATE_QUERY, GET_ASYNC_NAMES } from '../actions/assetMgmt';
 
 /**
  * previousState 为 
@@ -38,7 +38,7 @@ export function assetNames ( previousState=[], action ) {
     
     switch (action.type) {
 
-        case GET_ASSET_NAMES:
+        case GET_ASYNC_NAMES:
             return action.payload
 
         default:

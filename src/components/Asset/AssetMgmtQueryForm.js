@@ -6,7 +6,7 @@ import {fetchGet} from '../../api/fetch';
 
 
 
-import { updateQuery, getAssetNames } from '../../actions/assetMgmt';
+import { updateQuery, getAssets, getAsyncNames } from '../../actions/assetMgmt';
 
 
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
@@ -28,6 +28,8 @@ class AssetMgmtQueryForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             // 更新store
             !err && dispatch(updateQuery(values));
+            // 请求table数据
+            !err && dispatch(getAssets(values))
         });
     }
     
@@ -35,7 +37,7 @@ class AssetMgmtQueryForm extends React.Component {
     
     componentDidMount() {
         if ( ! this.props.assetNames.length )
-            this.props.dispatch(getAssetNames());
+            this.props.dispatch(getAsyncNames());
     }
     
     
