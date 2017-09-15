@@ -1,4 +1,4 @@
-import { GET_ASSETS, UPDATE_QUERY, GET_ASYNC_NAMES } from '../actions/assetMgmt';
+import { GET_ASSETS, UPDATE_ASSET, UPDATE_QUERY, GET_ASYNC_NAMES } from '../actions/assetMgmt';
 
 /**
  * previousState 为 
@@ -25,6 +25,13 @@ export function assetsTable ( previousState=[], action ) {
 
         case GET_ASSETS:
             return action.payload
+        
+        case UPDATE_ASSET:
+            return previousState.map(item =>
+                (item.id === action.payload.id)
+                    ? {...item, ...action.payload}
+                    : item
+            )
 
         default:
             return previousState

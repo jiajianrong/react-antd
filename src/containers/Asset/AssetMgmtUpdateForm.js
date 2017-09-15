@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {fetchGet, fetchPost} from '../../api/fetch';
 
 
+import { updateAsset } from '../../actions/assetMgmt';
+
 
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 
@@ -12,7 +14,23 @@ const Option = Select.Option;
 
 
 
+/**
+ * 从table中获取某个item
+ * @param {Object} table
+ * @param {Object} key
+ * @param {Object} value
+ */
+function findItemFromTable(table, key, value) {
+    let results = table.filter((item) => {
+        return item[key] === value;
+    })
+    return results[0];
+}
+
+
+
 class AssetMgmtUpdateForm extends React.Component {
+    
     
     
     constructor(props) {
@@ -20,6 +38,7 @@ class AssetMgmtUpdateForm extends React.Component {
         
         this.state = {};
     }
+    
     
     
     handleSubmit = (e) => {
@@ -31,6 +50,10 @@ class AssetMgmtUpdateForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             
             !err && fetchPost('api/asset/saveAsset', values, (data) => {
+                
+                // 更新store
+                dispatch(updateAsset(values));
+                
                 router.push('asset/assetMgmt');
             });
             
@@ -40,12 +63,25 @@ class AssetMgmtUpdateForm extends React.Component {
     
     
     componentDidMount() {
-        let id = this.props.location.query.id;
-        
-        // 获取当前id的item数据
-        fetchGet('api/asset/getAsset', {id}, (data) => {
-            this.setState(data);
-        })
+       
+       let assetsTable = this.props.assetsTable;
+       
+       // table在store里不存在，说明不是从table页过来的，强制返回table页
+       if ( !assetsTable.length ) {
+           this.props.router.replace('asset/assetMgmt');
+       }
+       
+       let id = this.props.location.query.id;
+       
+       // 显示当前id的item数据
+       let asset = findItemFromTable(assetsTable, 'id', id);
+       this.setState(asset);
+       
+       // 也可以发请求获取，这里暂时先使用store里的数据，可以少一个api接口
+       /*fetchGet('api/asset/getAsset', {id}, (data) => {
+           this.setState(data);
+       })*/
+       
     }
     
     
@@ -134,7 +170,7 @@ class AssetMgmtUpdateForm extends React.Component {
 const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
     return {
-        
+        assetsTable: state.assetsTable,
     }
 
 };
@@ -142,4 +178,4 @@ const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
 
 // export default connect(mapStateToProps)(AssetMgmtQueryForm)
-export default Form.create()(connect()(AssetMgmtUpdateForm));
+export default Form.create()(connect(mapStateToProps)(AssetMgmtUpdateForm));
