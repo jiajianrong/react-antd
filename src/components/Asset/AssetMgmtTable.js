@@ -24,9 +24,9 @@ const columns = [{
   key: 'action',
   render: (text, record) => (
     <span>
-      <a href="javascript:;">修改/查看</a>
+      <Link to={{ pathname: '/asset/assetMgmtUpdateForm', query: {id: record.id} }}>修改/查看</Link>
       <span className="ant-divider" />
-      <a href="javascript:;">删除</a>
+      <Link to={{ pathname: '/asset/assetMgmtAddForm', query: {id: record.id} }}>删除</Link>
     </span>
   ),
 }];

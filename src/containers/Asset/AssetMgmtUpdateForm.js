@@ -12,7 +12,14 @@ const Option = Select.Option;
 
 
 
-class AssetMgmtAddForm extends React.Component {
+class AssetMgmtUpdateForm extends React.Component {
+    
+    
+    constructor(props) {
+        super(props);
+        
+        this.state = {};
+    }
     
     
     handleSubmit = (e) => {
@@ -28,6 +35,17 @@ class AssetMgmtAddForm extends React.Component {
             });
             
         });
+    }
+    
+    
+    
+    componentDidMount() {
+        let id = this.props.location.query.id;
+        
+        // 获取当前id的item数据
+        fetchGet('api/asset/getAsset', {id}, (data) => {
+            this.setState(data);
+        })
     }
     
     
@@ -61,7 +79,7 @@ class AssetMgmtAddForm extends React.Component {
         };
         
         return (
-            <Form className="AppComponent AssetMgmtAddForm" onSubmit={this.handleSubmit}>
+            <Form className="AppComponent AssetMgmtUpdateForm" onSubmit={this.handleSubmit}>
                 
                 <FormItem
                   {...formItemLayout}
@@ -72,7 +90,22 @@ class AssetMgmtAddForm extends React.Component {
                 >
                   {getFieldDecorator('id', {
                     rules: [{ required: true, message: '请填写编号', whitespace: true }],
-                    initialValue: '',
+                    initialValue: this.state.id,
+                  })(
+                    <Input />
+                  )}
+                </FormItem>
+                
+                <FormItem
+                  {...formItemLayout}
+                  label={(
+                    <span>资产方名称&nbsp;</span>
+                  )}
+                  hasFeedback
+                >
+                  {getFieldDecorator('name', {
+                    rules: [{ required: true, message: '请填写名称', whitespace: true }],
+                    initialValue: this.state.name,
                   })(
                     <Input />
                   )}
@@ -80,7 +113,7 @@ class AssetMgmtAddForm extends React.Component {
                 
                 
                 <FormItem {...tailFormItemLayout}>
-                  <Button type="primary" htmlType="submit">新增</Button>
+                  <Button type="primary" htmlType="submit">更新</Button>
                 </FormItem>
                 
             </Form>
@@ -109,4 +142,4 @@ const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
 
 // export default connect(mapStateToProps)(AssetMgmtQueryForm)
-export default Form.create()(connect()(AssetMgmtAddForm));
+export default Form.create()(connect()(AssetMgmtUpdateForm));
