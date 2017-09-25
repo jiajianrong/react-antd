@@ -19,14 +19,6 @@
                     "key": "/general/list"
                 }]
             }, {
-                "name": "月付",
-                "key": "yuefu",
-                "icon": "mail",
-                "menu": [{
-                    "name": "首页",
-                    "key": "/yuefu/home"
-                }]
-            }, {
                 "name": "资产方",
                 "key": "asset",
                 "icon": "mail",
