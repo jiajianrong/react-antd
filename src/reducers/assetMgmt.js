@@ -1,4 +1,4 @@
-import { GET_ASSETS, UPDATE_ASSET, UPDATE_QUERY, GET_ASYNC_NAMES } from '../actions/assetMgmt';
+import { GET_ASSETS, UPDATE_ASSET, DELETE_ASSET, UPDATE_QUERY, GET_ASYNC_NAMES } from '../actions/assetMgmt';
 
 /**
  * previousState 为 
@@ -31,6 +31,11 @@ export function assetsTable ( previousState=[], action ) {
                 (item.id === action.payload.id)
                     ? {...item, ...action.payload}
                     : item
+            )
+        
+        case DELETE_ASSET:
+            return previousState.filter(item =>
+                (item.id !== action.payload)
             )
 
         default:

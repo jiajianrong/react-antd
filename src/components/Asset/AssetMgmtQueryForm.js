@@ -100,7 +100,7 @@ class AssetMgmtQueryForm extends React.Component {
                   hasFeedback
                 >
                   {getFieldDecorator('id', {
-                    rules: [{ required: true, message: '请填写编号', whitespace: true }],
+                    rules: [{ required: false, message: '请填写编号', whitespace: true }],
                     initialValue: assetsQueryForm.id,
                   })(
                     <Input />
@@ -115,7 +115,7 @@ class AssetMgmtQueryForm extends React.Component {
                 >
                   {getFieldDecorator('name', {
                     rules: [
-                      { required: true, message: '请填写名称' },
+                      { required: false, message: '请填写名称' },
                     ],
                     initialValue: assetsQueryForm.name,
                   })(

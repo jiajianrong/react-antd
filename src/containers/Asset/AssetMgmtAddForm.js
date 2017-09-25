@@ -18,13 +18,11 @@ class AssetMgmtAddForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         
-        let {dispatch, router} = this.props;
-        
         // 保存item
         this.props.form.validateFieldsAndScroll((err, values) => {
             
             !err && fetchPost('api/asset/saveAsset', values, (data) => {
-                router.push('asset/assetMgmt');
+                this.props.router.push('asset/assetMgmt');
             });
             
         });
