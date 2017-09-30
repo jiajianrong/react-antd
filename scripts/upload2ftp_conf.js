@@ -1,6 +1,6 @@
 module.exports = {
 
-	PATH_FROM: 'public',
+	PATH_FROM: 'build',
 	PATH_TO  : '/fe-test/antd',
 
 	FTP_IP      : '58',
