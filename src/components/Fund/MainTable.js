@@ -4,8 +4,6 @@ import {connect} from 'react-redux';
 import {fetchPost} from '../../api/fetch';
 
 
-import { deleteAsset } from '../../actions/assetMgmt';
-
 
 import { Table, Icon, Modal } from 'antd';
 
@@ -13,17 +11,17 @@ const confirm = Modal.confirm;
 
 
 
-class AssetMgmtTable extends React.Component {
+class MainTable extends React.Component {
     
     constructor(props) {
         super(props);
         
         this.columns = [{
-          title: '资产方编号',
+          title: '资金方编号',
           dataIndex: 'id',
           key: 'id'
         }, {
-          title: '资产方名称',
+          title: '资金方名称',
           dataIndex: 'name',
           key: 'name',
         }, {
@@ -35,7 +33,7 @@ class AssetMgmtTable extends React.Component {
           key: 'action',
           render: (text, record) => (
             <span>
-              <Link to={{ pathname: '/asset/assetMgmtUpdateForm', query: {id: record.id} }}>修改/查看</Link>
+              <Link to={{ pathname: '/fund/updateForm', query: {id: record.id} }}>修改/查看</Link>
               <span className="ant-divider" />
               <a onClick={()=>{this.deleteConfirm(record.id)}} href="javascript:;">删除</a>
             </span>
@@ -45,36 +43,12 @@ class AssetMgmtTable extends React.Component {
     
     
     
-    deleteConfirm(id) {
-        
-        let dispatch = this.props.dispatch;
-        
-        confirm({
-            title: `确认删除${id}?`,
-            content: '',
-            onOk() {
-              return new Promise((resolve, reject) => {
-                  fetchPost('api/asset/deleteAsset', {id}, (data) => {
-                      // 关闭对话框
-                      resolve();
-                      // 更新store
-                      dispatch(deleteAsset(id));
-                  })
-              }).catch(() => {
-                  console.log(`删除${id}出错`);
-              });
-            },
-            onCancel() {},
-          });
-    }
-    
-    
     
     render() {
-        let data = this.props.assetsTable;
+        let data = this.props.funds;
         
         return (
-            <div className="AppComponent AssetMgmtTable">
+            <div className="AppComponent">
                 <Table columns={this.columns} 
                        dataSource={data} 
                        rowKey={record=>record.id} 
@@ -95,7 +69,7 @@ class AssetMgmtTable extends React.Component {
 const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
     return {
-        assetsTable: state.assetsTable,
+        funds: state.fund_list,
     }
 
 };
@@ -103,4 +77,4 @@ const mapStateToProps = (state/*store.getState*/, ownProps) => {
 
 
 
-export default connect(mapStateToProps)(AssetMgmtTable);
+export default connect(mapStateToProps)(MainTable);

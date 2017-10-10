@@ -105,6 +105,25 @@ ReactDOM.render(
                     
                 </Route>
                 
+                
+                
+                {/* 资金方 */}
+                <Route path="Fund" getComponent={(location, callback)=>{
+                    require.ensure([], function (require) {
+                        callback(null, require('./containers/Fund/Fund').default)
+                    }, 'Fund') 
+                }}>
+                    
+                    <IndexRedirect to="Main"/>
+                    
+                    <Route path="Main" getComponent={(location, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, require('./containers/Fund/Main').default)
+                        }, 'Main')
+                    }} />
+                    
+                </Route>
+                
             </Route>
             
             
