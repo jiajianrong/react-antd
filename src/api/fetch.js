@@ -69,34 +69,3 @@ export const fetchGet = (url, body, success, fail) => {
 }
 
 
-
-export const fetchWithPagination = (url, body, success, fail) => {
-
-    let enhanceUrl = `${url}?${stringifyParams(body)}`;
-
-    fetch(enhanceUrl, {
-        method: 'get',
-        headers: {
-            'X-Requested-With':'XMLHttpRequest',
-            'cache-control': 'no-cache',
-            'Accept':'*/*',
-        },
-        credentials: 'include'
-    })
-    .then(response => response.json())
-    .then((response) => {
-
-        if (response.code === 0) {
-            success(response)
-        } else {
-            if (!fail) { fail = defaultFailFun };
-            fail(response)
-        }
-
-    })
-    .catch((err) => {
-        if (!fail) { fail = defaultFailFun };
-        fail(err)
-    })
-
-}

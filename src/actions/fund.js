@@ -48,7 +48,7 @@ export function getTable(query) {
             type: FUND_UPDATE_TABLE_LOADING,
             payload: true
         })
-        
+            
         fetchGet('api/fund/getFunds', query, (data) => {
             data && dispatch({
                 type: FUND_GET_TABLE,
