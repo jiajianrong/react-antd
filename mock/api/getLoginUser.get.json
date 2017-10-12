@@ -33,6 +33,9 @@
                 "menu": [{
                     "name": "资金方管理",
                     "key": "/Fund/Main"
+                },{
+                    "name": "分页",
+                    "key": "/Fund/Paging"
                 }]
             }
         ]

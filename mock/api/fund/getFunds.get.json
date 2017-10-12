@@ -1,8 +1,9 @@
 {
     "code": 0,
     "msg": "get成功",
-    "total": 200,
-    "data": [{
+    "data": {
+        "total": 200,
+        "list": [{
             "id": "1",
             "name": "保利国际",
             "dealer": "财务部",
@@ -72,6 +73,6 @@
             "dealDate": "1988-08-12",
             "contactName": "非必填",
             "contactPhone": "13812345678"
-        }
-    ]
+        }]
+    }
 }

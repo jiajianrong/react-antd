@@ -6,7 +6,7 @@ import {fetchGet} from '../../api/fetch';
 
 
 
-import { updateQuery, getAll } from '../../actions/fund';
+import { updateQuery, getTable } from '../../actions/fund';
 
 
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
@@ -29,7 +29,7 @@ class QueryForm extends React.Component {
             // 更新store
             !err && dispatch(updateQuery(values));
             // 请求table数据
-            !err && dispatch(getAll(values))
+            // !err && dispatch(getTable(values))
         });
     }
     

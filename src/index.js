@@ -122,6 +122,12 @@ ReactDOM.render(
                         }, 'Main')
                     }} />
                     
+                    <Route path="Paging" getComponent={(location, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, require('./containers/Fund/Paging').default)
+                        }, 'Paging')
+                    }} />
+                    
                 </Route>
                 
             </Route>
