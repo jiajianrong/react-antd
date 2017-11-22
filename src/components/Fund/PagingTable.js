@@ -117,6 +117,7 @@ class PagingTable extends React.Component {
             
             dispatch( resetPagination() );
             
+            // 确保store.getState().fund_pagination 已经改变
             setTimeout(()=> {
                 dispatch( getTable( { ...s_next_fund_query_form, ...this.props.s_fund_pagination } ) )
             }, 0)

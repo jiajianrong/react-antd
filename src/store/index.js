@@ -46,5 +46,6 @@ let store = createAppStore(reducers/*, {}*/);
 
 // jiajianrong 20170908 暂时抛出
 window.globalStore = store;
+window.globalReducers = reducers;
 
 export default store;
